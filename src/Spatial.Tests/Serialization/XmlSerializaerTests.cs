@@ -102,6 +102,16 @@ namespace MathNet.Spatial.Serialization.Xml.UnitTests
         }
 
         [Explicit("fix later")]
+        [TestCase("0, 0, 0", 2.5, @"<Sphere3D><CenterPoint X=""0"" Y=""0"" Z=""0"" /><Axis X=""0"" Y=""0"" Z=""1"" /><Radius>2.5</Radius></Sphere3D>")]
+        public void Sphere3DXml(string point, double radius, string xml)
+        {
+            var center = Point3D.Parse(point);
+            var c = new Sphere3D(center, radius);
+            var result = AssertXml.XmlSerializerRoundTrip(c, xml);
+            Assert.AreEqual(c, result);
+        }
+
+        [Explicit("fix later")]
         [Test]
         public void Polygon2DXml()
         {

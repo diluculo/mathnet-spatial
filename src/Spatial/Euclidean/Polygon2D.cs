@@ -251,6 +251,68 @@ namespace MathNet.Spatial.Euclidean
             return new PolyLine2D(points);
         }
 
+        public Triangle2D[] Triangulate()
+        {
+            var triangles = new List<Triangle2D>();
+            var chain = new List<int>();
+
+            var vertices = this.points.ToList();
+
+            for (int i = 0; i < vertices.Count; i++)
+                chain.Add(i);
+
+            int p1 = 0;
+            int p2 = 1;
+            int p3 = 2;
+
+            while (chain.Count > 2)
+            {
+                var minAngle = 2d * Math.PI;
+
+                int wi = 0;
+
+                for (int i = 0; i < chain.Count; i++)
+                {
+                    int im, ip, ii;
+
+                    if (i == 0)
+                    {
+                        ii = chain[i];
+                        im = chain[chain.Count - 1];
+                        ip = chain[1];
+                    }
+                    else
+                    {
+                        ii = chain[i];
+                        im = chain[i - 1];
+                        ip = chain[(i + 1) % chain.Count];
+                    }
+
+                    var v1 = vertices[im] - vertices[ii];
+                    var v2 = vertices[ip] - vertices[ii];
+
+                    var angle = Math.Abs(v1.AngleTo(v2).Radians);
+
+                    if (angle < minAngle)
+                    {
+                        minAngle = angle;
+
+                        p1 = ii;
+                        p2 = ip;
+                        p3 = im;
+
+                        wi = i;
+                    }
+                }
+
+                triangles.Add(new Triangle2D(vertices[p1], vertices[p2], vertices[p3]));
+
+                chain.RemoveAt(wi);
+            }
+
+            return triangles.ToArray();
+        }
+
         /// <summary>
         /// Returns a value to indicate if a pair of polygons are equal
         /// </summary>

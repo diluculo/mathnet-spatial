@@ -314,13 +314,13 @@ namespace MathNet.Spatial.Euclidean
         /// <summary>
         /// Create a new <see cref="UnitVector3D"/> from a Math.NET Numerics vector of length 3.
         /// </summary>
-        /// <param name="vector"> A vector with length 2 to populate the created instance with.</param>
+        /// <param name="vector"> A vector with length 3 to populate the created instance with.</param>
         /// <returns> A <see cref="UnitVector3D"/></returns>
         public static UnitVector3D OfVector(Vector<double> vector)
         {
             if (vector.Count != 3)
             {
-                throw new ArgumentException("The vector length must be 3 in order to convert it to a Vector3D");
+                throw new ArgumentException("The vector length must be 3 in order to convert it to a UnitVector3D");
             }
 
             return Create(vector.At(0), vector.At(1), vector.At(2));

@@ -145,6 +145,22 @@ namespace MathNet.Spatial.Euclidean
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Plane"/> struct.
+        /// Creates a plane that contains the three given points.
+        /// </summary>
+        /// <param name="p">The three points on the plane.</param>
+        /// <returns>The plane containing the three points.</returns>
+        public static Plane FromPoints(Point3D[] p)
+        {
+            if (p.Length != 3)
+            {
+                throw new ArgumentException("Three points are required for a Plane");
+            }
+            
+            return FromPoints(p[0], p[1], p[2]);
+        }
+
+        /// <summary>
         /// Returns a point of intersection between three planes
         /// </summary>
         /// <param name="plane1">The first plane</param>

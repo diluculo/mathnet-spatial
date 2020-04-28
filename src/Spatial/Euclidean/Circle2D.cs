@@ -50,6 +50,18 @@ namespace MathNet.Spatial.Euclidean
         public double Area => this.Radius * this.Radius * Math.PI;
 
         /// <summary>
+        /// Test whether a point is enclosed within the circle. 
+        /// </summary>
+        /// <param name="p">A point.</param>
+        /// <param name="tolerance">A tolerance to account for floating point error.</param>
+        /// <returns>True if the point is on or in the circle; otherwise false.</returns>
+        public bool Contains(Point2D p, double tolerance = float.Epsilon)
+        {
+            var distance = (p - Center).Length;
+            return distance <= Radius + tolerance;
+        }
+
+        /// <summary>
         /// Returns a value that indicates whether each pair of elements in two specified circles is equal.
         /// </summary>
         /// <param name="left">The first circle to compare.</param>

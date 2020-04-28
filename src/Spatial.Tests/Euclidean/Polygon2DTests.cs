@@ -160,6 +160,13 @@ namespace MathNet.Spatial.UnitTests.Euclidean
             CollectionAssert.AreEqual(expected.Vertices, thinned.Vertices);
         }
 
+        [Test]
+        public void Triangulate()
+        {
+            var testPoly = TestPolygon5();
+            var triangles = testPoly.Triangulate();
+        }
+
         private static Polygon2D TestPolygon1()
         {
             var points = from x in new[] { "0,0", "0.25,0.5", "1,1", "-1,1", "0.5,-0.5" } select Point2D.Parse(x);
@@ -181,6 +188,12 @@ namespace MathNet.Spatial.UnitTests.Euclidean
         private static Polygon2D TestPolygon4()
         {
             var points = from x in new[] { "0.5,1", "1,-1", "0.25,0" } select Point2D.Parse(x);
+            return new Polygon2D(points);
+        }
+
+        private static Polygon2D TestPolygon5()
+        {
+            var points = from x in new[] { "6,5", "3,5", "3,4", "0,4", "0,1", "3,1", "3,0","5,0","5,2","2,2", "2,3", "7,3", "7,1", "9,1", "9,4", "6,4", "6,5" } select Point2D.Parse(x);
             return new Polygon2D(points);
         }
     }

@@ -170,6 +170,17 @@ namespace MathNet.Spatial.Serialization.Xml.UnitTests
         }
 
         [Explicit("fix later")]
+        [TestCase("0, 0, 0", 3)]
+        public void Sphere3DDataContract(string point, double radius)
+        {
+            var center = Point3D.Parse(point);
+            var c = new Sphere3D(center, radius);
+            const string ElementXml = @"<Sphere3D><CenterPoint><X>0</X><Y>0</Y></CenterPoint><Radius>3</Radius></Sphere3D>";
+            var result = this.DataContractRoundTrip(c, ElementXml);
+            Assert.AreEqual(c, result);
+        }
+
+        [Explicit("fix later")]
         [Test]
         public void Polygon2DDataContract()
         {

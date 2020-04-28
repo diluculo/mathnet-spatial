@@ -157,6 +157,16 @@ namespace MathNet.Spatial.Serialization.Xml.UnitTests
         }
 
         [Explicit("fix later")]
+        [TestCase("0, 0, 0", 2.5)]
+        public void Sphere3DJson(string point, double radius)
+        {
+            var center = Point3D.Parse(point);
+            var c = new Sphere3D(center, radius);
+            var result = this.JsonRoundTrip(c);
+            Assert.AreEqual(c, result);
+        }
+
+        [Explicit("fix later")]
         [Test]
         public void Polygon2DJson()
         {
